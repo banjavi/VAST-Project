@@ -1,5 +1,3 @@
-# CSE 578 Project - Adam-Andrew-Bijan-Collin-Eric-Omair
-
 # Fiscal Clarity: Turning Data into Insights for Engagement, Ohio
 
 ## 2022 Economic VAST Mini-Challenge
