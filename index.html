@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- BOOTSTRAP CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <!-- FONTAWESOME ICONS -->
+    <script src="https://kit.fontawesome.com/d9fddfb3f3.js" crossorigin="anonymous"></script>
+    <!-- D3 -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <!-- JQUERY -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <!-- JQUERY UI JS-->
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <!-- JQUERY UI CSS -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <!-- CUSTOM CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <title>CSE 578 Project</title>
+</head>
+
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar bg-success" data-bs-theme="dark">
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1">CSE 578 Data Visualization (Spring 2023) - VAST Challenge 2022 (Economic)</span>
+            <span class="navbar-brand mb-0 h1">Adam-Andrew-Bijan-Collin-Eric-Omair</span>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <div class="content-container">
+
+        <!-- PAGE 1 -->
+        <div class="page" id="page1">
+            <div class="row py-2 bg-dark">
+                <div class="col"></div>
+                <div class="col">
+                    <h2 class="text-center text-light">Businesses</h2>
+                </div>
+                <div class="col d-flex align-items-center justify-content-end">
+                    <button type="button" class="border btn btn-outline-light slide-btn me-3" data-target="page2" onclick="updateSliders('slider-range-date-businesses')">Go to People <i class="fa-solid fa-arrow-right-long ms-1"></i></button>
+                </div>
+            </div>
+            <div class="row m-3 p-3">
+                <div class="col px-5">
+                    <p class="text-center">
+                        <label class="text-success" for="date-businesses"><strong>Date range:</strong></label>
+                        <input class="text-success" type="text" id="date-businesses" readonly style="border:0;">
+                    </p>
+                    <div id="slider-range-date-businesses"></div>
+                </div>
+                <div class="col px-5">
+                    <p class="text-center">
+                        <label class="text-success" for="amount"><strong>Revenue range:</strong></label>
+                        <input class="text-success" type="text" id="amount" readonly style="border:0;">
+                    </p>
+                    <div id="slider-range-revenue"></div>
+                </div>
+            </div>
+            <div class="row m-2 pb-5">
+                <div class="col mx-2 border rounded border-success border-2 d-flex flex-column">
+                    <div class="row" id="heatmap-title">
+                        <div class="text-center text-secondary mt-2">
+                            <h5 class="text-dark">Employee Turnover Rate by Region</h5>
+                            <small>
+                                This chart shows a heatmap of employee turnover rates over the entire
+                                selected timeframe.
+                            </small>
+                            <br>
+                            <small>
+                                Use the lasso tool to select smaller regions or hover for individual building
+                                turnover rates.
+                            </small>
+                        </div>
+                    </div>
+                    <div id="chart1" class="flex-grow-1">
+
+                    </div>
+                </div>
+                <div class="col mx-2">
+                    <div class="row h-50 pb-2">
+                        <div class="col border rounded border-success border-2 d-flex flex-column">
+                            <div class="row">
+                                <div class="text-center text-secondary mt-2">
+                                    <h5 class="text-dark">Employee Turnover for Selected Region</h5>
+                                    <small>
+                                        This chart displays the over time employee turnover rate for the region selected.
+                                        Adjust the date slider to focus on a specific time period.
+                                    </small>
+                                    <br>
+                                    <small>Hover over the chart to see more information about daily employee turnover.</small>
+                                </div>
+                            </div>
+                            <div id="chart2" class="flex-grow-1">
+                                <svg id="multi_line_svg"></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row h-50 pt-2">
+                        <div class="col border rounded border-success border-2 me-2 d-flex flex-column">
+                            <div class="row">
+                                <div class="text-center text-secondary mt-2">
+                                    <h5 class="text-dark">Total Revenue by Business Type</h5>
+                                    <small>The bar chart compares revenue performance of different business types.
+                                    </small>
+                                    <br>
+                                    <small>Use the Revenue, Date, and the Map to filter data or hover to see more details.</small>
+                                </div>
+                            </div>
+                            <div id="chart3">
+                                <svg id="bar_svg"></svg>
+                            </div>
+                        </div>
+                        <div class="col border rounded border-success border-2 ms-2 d-flex flex-column">
+                            <div class="row">
+                                <div class="text-center text-secondary mt-2">
+                                    <h5 class="text-dark">Cumulative Revenue by Business Type</h5>
+                                    <small>The normalized stream graph compares the business types, revenue performance over time.
+                                    </small>
+                                    <br>
+                                    <small>Use the Revenue, Date, and the Map to filter data or hover to see more details.</small>
+                                </div>
+                            </div>
+                            <div id="chart4">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE 2 -->
+        <div class="page" id="page2">
+            <div class="row py-2 bg-dark">
+                <div class="col d-flex align-items-center justify-content-start">
+                    <button type="button" class="border btn btn-outline-light slide-btn ms-3" data-target="page1" onclick="updateSliders('slider-range-date-people')"><i class="fa-solid fa-arrow-left-long me-1"></i>Back to Businesses</button>
+                </div>
+                <div class="col">
+                    <h2 class="text-center text-light">People</h2>
+                </div>
+                <div class="col">
+
+                </div>
+            </div>
+            <div class="row">
+                <div id="filtering_warning" class="text-center mt-2 mb-0" style="opacity: 0%;">
+                    <h6 class="text-danger">*Data filtered by Lasso*</h6>
+                </div>
+                <!-- <div class="col px-5 d-flex align-items-end justify-content-center">
+                    <div class="dropdown w-75">
+                        <button id="dropdown-button" class="btn btn-success dropdown-toggle w-100" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Household Size
+                        </button>
+                        <ul class="dropdown-menu w-100" id="demographic-dropdown">
+                          <li><a class="dropdown-item" href="#">Household Size</a></li>
+                          <li><a class="dropdown-item" href="#">Has Kids</a></li>
+                          <li><a class="dropdown-item" href="#">Age</a></li>
+                          <li><a class="dropdown-item" href="#">Education Level</a></li>
+                          <li><a class="dropdown-item" href="#">Interest Group</a></li>
+                          <li><a class="dropdown-item" href="#">Joviality</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col px-5">
+                    <p class="text-center">
+                        <label class="text-success" for="date-people"><strong>Date range:</strong></label>
+                        <input class="text-success" type="text" id="date-people" readonly style="border:0;">
+                    </p>
+                    <div id="slider-range-date-people"></div>
+                </div> -->
+            </div>
+            <div class="row m-2 pb-5">
+                <div class="col mx-2 border rounded border-success border-2 d-flex flex-column">
+                    <div class="row">
+                        <div class="text-center text-secondary mt-2">
+                            <h5 class="text-dark">Average Balance by Demographic</h5>
+                            <small>Showcases each participant demographic category and their average account balance over time.
+                            </small>
+                            <br>
+                            <small>Interactions: Map Lasso, Demographic Dropdown button, Date Range slider, Scatter Plot.</small>
+                        </div>
+                    </div>
+                    <div class="row my-2">
+                        <div class="col px-4 d-flex align-items-end justify-content-center">
+                            <div class="dropdown w-100">
+                                <button id="dropdown-button" class="btn btn-success dropdown-toggle w-100" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                  Household Size
+                                </button>
+                                <ul class="dropdown-menu w-100" id="demographic-dropdown">
+                                  <li><a class="dropdown-item" href="#">Household Size</a></li>
+                                  <li><a class="dropdown-item" href="#">Has Kids</a></li>
+                                  <li><a class="dropdown-item" href="#">Age</a></li>
+                                  <li><a class="dropdown-item" href="#">Education Level</a></li>
+                                  <li><a class="dropdown-item" href="#">Interest Group</a></li>
+                                  <li><a class="dropdown-item" href="#">Joviality</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col px-4">
+                            <p class="text-center">
+                                <label class="text-success" for="date-people"><strong>Date range:</strong></label>
+                                <input class="text-success" type="text" id="date-people" readonly style="border:0;">
+                            </p>
+                            <div id="slider-range-date-people"></div>
+                        </div>
+                    </div>
+                    <div id="chart5" class="flex-grow-1">
+
+                    </div>
+                </div>
+                <div class="col mx-2 border rounded border-success border-2 d-flex flex-column">
+                    <div class="row my-2">
+                        <div class="text-center text-secondary mt-2">
+                            <h5 class="text-dark">Wages vs. Cost of Living</h5>
+                            <small>Since wages and rent are on a monthly basis, this chart 
+                                is independent of the date range slider. Use the buttons below to interact with the data!
+                            </small>
+                            <br>
+                            <small>Note: You can click on a participant point to highlight the category it belongs to in the bubble chart on the left.</small>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col text-end mt-2">
+                            <div class="dropdown w-100">
+                                <button id="chart6_month_dropdown_button" class="btn btn-success dropdown-toggle w-50" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                  2022-03
+                                </button>
+                                <ul class="dropdown-menu w-50" id="chart6_month_dropdown">
+                                  <li><a class="dropdown-item" href="#" selected>2022-03</a></li>
+                                  <li><a class="dropdown-item" href="#">2022-04</a></li>
+                                  <li><a class="dropdown-item" href="#">2022-05</a></li>
+                                  <li><a class="dropdown-item" href="#">2022-06</a></li>
+                                  <li><a class="dropdown-item" href="#">2022-07</a></li>
+                                  <li><a class="dropdown-item" href="#">2022-08</a></li>
+                                  <li><a class="dropdown-item" href="#">2022-09</a></li>
+                                  <li><a class="dropdown-item" href="#">2022-10</a></li>
+                                  <li><a class="dropdown-item" href="#">2022-11</a></li>
+                                  <li><a class="dropdown-item" href="#">2022-12</a></li>
+                                  <li><a class="dropdown-item" href="#">2023-01</a></li>
+                                  <li><a class="dropdown-item" href="#">2023-02</a></li>
+                                  <li><a class="dropdown-item" href="#">2023-03</a></li>
+                                  <li><a class="dropdown-item" href="#">2023-04</a></li>
+                                  <li><a class="dropdown-item" href="#">2023-05</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col text-start">
+                            <button id="animateChart6" class="btn btn-success mt-2 mx-auto w-50" onclick="playAnimation()">Play animation<i class="fa-solid fa-play ms-2"></i></button>
+                        </div>
+                    </div>
+                    <div id="chart6" class="flex-grow-1">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOOTSTRAP JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <!-- CUSTOM JS -->
+    <script src="js/frontend.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/chart1.js"></script>
+    <script src="js/chart2.js"></script>
+    <script src="js/chart3.js"></script>
+    <script src="js/chart4.js"></script>
+    <script src="js/chart5.js"></script>
+    <script src="js/chart6.js"></script>
+    <script src="js/robustPointInPolygon.js"></script>
+</body>
+
+</html>

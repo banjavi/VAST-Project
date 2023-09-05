@@ -1,0 +1,30 @@
+{
+  "name": "adam-andrew-bijan-collin-eric-omair",
+  "version": "1.0.0",
+  "description": "CSE 578 Group Project",
+  "main": "node server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asu-cse578-s2023/Adam-Andrew-Bijan-Collin-Eric-Omair.git"
+  },
+  "keywords": [
+    "Data",
+    "Vis"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/asu-cse578-s2023/Adam-Andrew-Bijan-Collin-Eric-Omair/issues"
+  },
+  "homepage": "https://github.com/asu-cse578-s2023/Adam-Andrew-Bijan-Collin-Eric-Omair#readme",
+  "dependencies": {
+    "pg": "^8.10.0"
+  },
+  "devDependencies": {
+    "express": "^4.18.2"
+  }
+}

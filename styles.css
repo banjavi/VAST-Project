@@ -1,0 +1,121 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    width: 100vw;
+    height: calc(100vh - 1.5rem);
+}
+  
+.content-container {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.page {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.5s;
+    display: grid;
+    grid-template-rows: auto auto 1fr;
+}
+
+#page1 {
+    transform: translateX(0%);
+}
+
+#page2 {
+    transform: translateX(100%);
+}
+
+.col .ui-state-hover,
+.col .ui-state-active {
+    background-color: #198754;
+}
+
+  
+#chart2 {
+    height: 100%;
+}
+#multi_line_svg {
+    width: 100%;
+    height: 100%;
+}
+
+#chart3 {
+    height: 100%;
+}
+#bar_svg {
+    width: 100%;
+    height: 100%;
+}
+
+
+#chart4 {
+    height: 100%;
+}
+.axis path,
+.axis line {
+  fill: none;
+  stroke: black;
+  shape-rendering: crispEdges;
+}
+.axis text {
+  font-family: sans-serif;
+  font-size: 12px;
+}
+.segment-hover {
+    opacity: 1 !important; /* Increase opacity */
+    stroke: #333; /* Add stroke color */
+    stroke-width: 1px; /* Add stroke width */
+}
+
+div.tooltip {
+    position: absolute;
+    text-align: center;
+    padding: .5rem;
+    background: #FFFFFF;
+    color: #313639;
+    border: 2px solid #313639;
+    border-radius: 8px;
+    pointer-events: none;
+    font-size: 1.3rem;
+}
+
+
+
+/* Different border animations for on-click events*/
+@keyframes glowing-border {
+  0% {
+    stroke-opacity: 0.5;
+  }
+  50% {
+    stroke-opacity: 1;
+  }
+  100% {
+    stroke-opacity: 0.5;
+  }
+}
+
+.glowing-border {
+    animation: glowing-border 1.5s infinite;
+    stroke-width: 3; /* Increase the stroke width */
+    stroke: #32CD32; /* Change the stroke color to a more vibrant green */
+    filter: drop-shadow(0 0 8px #32CD32); /* Add a glowing drop-shadow */
+  }
+
+  #chart5, #chart6 {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  
+  #svg5, #svg6 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
